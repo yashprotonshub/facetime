@@ -20,9 +20,24 @@ class PostsController < ApplicationController
         @all_comments=Post.find(@post.id).comments
     end
 
+    def destroy
+        @post=Post.find(params[:id])
+        @post.destroy
+    end
+
+    def edit
+        @post=Post.find(params[:id])
+    end
+
+    def update
+        debugger
+        @post=Post.find(params[:id])
+        @post.update(post_params)
+        redirect_to user_post_path(current_user.id, @post.id)
+    end
 
     private
         def post_params
-            params.require(:post).permit(:title)
+            params.require(:post).permit(:title, :body)
         end
 end
