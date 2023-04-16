@@ -1,0 +1,18 @@
+You are logged in as <%= current_user.email %><br><br>
+
+<%= @post.title %> <br>
+
+<br>
+<div id="comments_id" >
+
+    <% @all_comments.each do |allcomment|    %>
+        <%= render 'partial/te', i1:allcomment %>
+    <% end %>
+</div>
+<%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
+    <%= f.label :comment %>
+    <%= f.text_area :body %>
+    <%= f.submit %>
+<%  end %>
+<br>
+<%= link_to "Back", root_path %>
