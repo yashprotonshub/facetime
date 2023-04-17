@@ -16,28 +16,22 @@ You are currently logged in as <%= current_user.email %>
 <%= link_to "New Post", new_user_post_path(current_user) %>
 <h2> ALl request </h2>
 <% for allrequests in @allrequests %>
-    <p>
-        <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete %>
+    <p class="friendrequest-<%= allrequests.id %>">
+        <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true %>
     </p>
 <% end %>
 
 <h3> All Friends </h3>
-<% for allfriends in @allfriends_friendrequest_received %>
-    <div class="friendrequest-<%= allfriends.id %>">
-        <p>
-            <%= User.find(allfriends.sender_id).email %> <%= link_to "Remove Friend", user_friendrequest_path(current_user.id, allfriends.id), method: :delete, remote:true     %>
-        </p>
-    </div>
-<% end %>
 
-<% for allfriends in @allfriends_friendrequest_sent %>
-    <div class="friendrequest-<%= allfriends.id %>">
-        <p>
-            <%= User.find(allfriends.receiver_id).email %> <%= link_to "Remove Friend", user_friendrequest_path(current_user, allfriends.id), method: :delete, remote:true %>
-        </p>
-    </div>
-<% end %>    
-
+<div id="allfriendslist">
+    <% for allfriends in @allfriends_friendrequest_sent %>
+            <%= User.find(allfriends.receiver_id).email %>
+    <% end %>
+    <% for allfriends in @allfriends_friendrequest_received %>
+            <%= render 'partial/all_friends_list', allfriends:allfriends %>
+    <% end %>    
+</div>
+<br>
 <h4> All USers </h4>
 <% for user in @allusers %>
     <% if user.id== current_user.id %>

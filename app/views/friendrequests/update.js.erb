@@ -1,0 +1,3 @@
+
+$( ".friendrequest-<%= @friend.id %>").remove();
+$( "#allfriendslist").append("<%= j render 'partial/all_friends_list' ,  allfriends:@friend   %>");
