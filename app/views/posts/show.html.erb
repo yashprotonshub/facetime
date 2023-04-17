@@ -5,7 +5,7 @@ You are logged in as <%= current_user.email %><br><br>
 <div id="comments_id" >
 
     <% @all_comments.each do |allcomment|    %>
-        <%= render 'partial/te', i1:allcomment %>
+        <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
     <% end %>
 </div>
 <%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>

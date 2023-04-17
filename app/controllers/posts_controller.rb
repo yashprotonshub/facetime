@@ -30,7 +30,6 @@ class PostsController < ApplicationController
     end
 
     def update
-        debugger
         @post=Post.find(params[:id])
         @post.update(post_params)
         redirect_to user_post_path(current_user.id, @post.id)
