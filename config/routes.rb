@@ -7,9 +7,7 @@ Rails.application.routes.draw do
     resources :posts do
       resources :comments
     end
-    resources :friendrequests do
-      delete '/remove_user', to: "friendrequests#removefriend"
-    end
+    resources :friendrequests
   end
 end
 

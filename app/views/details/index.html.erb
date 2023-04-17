@@ -1,9 +1,9 @@
 <h1> All Posts </h1>
 You are currently logged in as <%= current_user.email %>
-<% for i in @all_posts %>
+<% for post in @all_posts %>
     <p>
-        <%= link_to i.title , user_post_path(current_user.id, i.id) %> <br>
-        By <%= User.find(i.user_id).email %> 
+        <%= link_to post.title , user_post_path(current_user.id, post.id) %> <br>
+        By <%= User.find(post.user_id).email %> 
     </p>
 <% end %>
 

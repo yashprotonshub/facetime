@@ -1,9 +1,11 @@
 <br>
 <div class="user-<%= user_comment.id %>">
-    <%= user_comment.body %> <br> 
-    By 
-    <%= User.find(user_comment.user_id).email %><br>
-    <% if user_comment.user_id == current_user.id %>
-        <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true %><br>
-    <% end %>
+    <p>
+        <%= user_comment.body %> <br> 
+        By 
+        <%= User.find(user_comment.user_id).email %><br>
+        <% if user_comment.user_id == current_user.id %>
+            <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true %><br>
+        <% end %>
+    </p>
 </div>

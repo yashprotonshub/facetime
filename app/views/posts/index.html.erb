@@ -1,16 +1,19 @@
-<h1> All Posts </h1>
 You are currently logged in as <%= current_user.email %>
-<% for i in @all_posts %>
-    <p>
-        <%= link_to i.title , user_post_path(current_user.id, i.id) %> <br>
-        By <%= User.find(i.user_id).email %> <br>
-        <% if i.user_id == current_user.id %>
-            <%= link_to "Delete", user_post_path(current_user.id, i.id), method: :delete %>    
-            <%= link_to "Edit", edit_user_post_path(current_user.id, i.id) %> 
-        <% end %>
-    </p>
-<% end %>
+<h1> All Posts </h1>
 
+<% for post in @all_posts %>
+    <div class="user-post-<%= post.id %>">
+        <p>
+            <%= link_to post.title , user_post_path(current_user.id, post.id) %> <br>
+            By <%= User.find(post.user_id).email %> <br>
+            <% if post.user_id == current_user.id %>
+                <%= link_to "Delete", user_post_path(current_user.id, post.id), method: :delete, remote: true %>    
+                <%= link_to "Edit", edit_user_post_path(current_user.id, post.id) %> 
+            <% end %>
+        </p>
+    </div>
+<% end %>
+<%= link_to "New Post", new_user_post_path(current_user) %>
 <h2> ALl request </h2>
 <% for allrequests in @allrequests %>
     <p>
@@ -19,19 +22,30 @@ You are currently logged in as <%= current_user.email %>
 <% end %>
 
 <h3> All Friends </h3>
-<% for allfriends in @allfriends %>
-    <p>
-        <%= User.find(allfriends).email %> <%= link_to "Remove Friend", user_friendrequest_remove_user_path( current_user, allfriends, friendrequest_id: allfriends ), method: :delete %>
-    </p>    
-<% end %> 
+<% for allfriends in @allfriends_friendrequest_received %>
+    <div class="friendrequest-<%= allfriends.id %>">
+        <p>
+            <%= User.find(allfriends.sender_id).email %> <%= link_to "Remove Friend", user_friendrequest_path(current_user.id, allfriends.id), method: :delete, remote:true     %>
+        </p>
+    </div>
+<% end %>
+
+<% for allfriends in @allfriends_friendrequest_sent %>
+    <div class="friendrequest-<%= allfriends.id %>">
+        <p>
+            <%= User.find(allfriends.receiver_id).email %> <%= link_to "Remove Friend", user_friendrequest_path(current_user, allfriends.id), method: :delete, remote:true %>
+        </p>
+    </div>
+<% end %>    
+
 <h4> All USers </h4>
-<% for allusers in @allusers %>
-    <% if allusers.id== current_user.id %>
+<% for user in @allusers %>
+    <% if user.id== current_user.id %>
         <% next %>
     <% else %>
-        <p>
-            <%= allusers.id %>
-            <%= allusers.email %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, allusers.id, receiver: allusers.id ), method: :post %>
+        <p class="user-class-<%= user.id %>">
+            <%= user.id %>
+            <%= user.email %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true %>
         </p>
     <% end %>
 
@@ -39,9 +53,10 @@ You are currently logged in as <%= current_user.email %>
 
 <br>
 <br>
-<%= link_to "New Post", new_user_post_path(current_user) %>
+
 <br><br>
 <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+
 
 
 
