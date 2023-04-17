@@ -5,7 +5,8 @@
         By 
         <%= User.find(user_comment.user_id).email %><br>
         <% if user_comment.user_id == current_user.id %>
-            <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true %><br>
+            <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true %>   
+            <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id)%><br>
         <% end %>
     </p>
 </div>

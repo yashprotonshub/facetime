@@ -5,6 +5,18 @@ class CommentsController < ApplicationController
         @comment.destroy
         
     end
+
+    def edit
+        @post=Post.find(params[:post_id])
+        @comment=Comment.find(params[:id])
+        @user=User.find(params[:user_id])
+    end
+
+    def update
+        @comment=Comment.find(params[:id])
+        @comment.update(comment_params)
+        redirect_to user_post_path(params[:user_id], params[:post_id])
+    end
     
 
     def create
