@@ -5,7 +5,7 @@ You are currently logged in as <%= current_user.name %>
     <div class="user-post-<%= post.id %>">
         <p style="text-align: center;">
             <%= link_to post.title , user_post_path(current_user.id, post.id) %> <br>
-            By <%= User.find(post.user_id).email %> <br>
+            By <%= User.find(post.user_id).name %> <br>
             <% if post.user_id == current_user.id %>
                 <%= link_to "Delete", user_post_path(current_user.id, post.id), method: :delete, remote: true %>    
                 <%= link_to "Edit", edit_user_post_path(current_user.id, post.id) %> 
@@ -14,7 +14,7 @@ You are currently logged in as <%= current_user.name %>
     </div>
 <% end %>
 <br>
-<%= link_to "New Post", new_user_post_path(current_user), style: "text-decoration:none ; text-align: center;  " %>
+<%= link_to "New Post", new_user_post_path(current_user), class:"btn btn-primary my-name-button" %>
 
 <h2> ALl request </h2>
 <% for allrequests in @allrequests %>
@@ -27,7 +27,7 @@ You are currently logged in as <%= current_user.name %>
 
 <div id="allfriendslist">
     <% for allfriends in @allfriends_friendrequest_sent %>
-            <%= User.find(allfriends.receiver_id).email %>
+            <%= User.find(allfriends.receiver_id).name %>
     <% end %>
     <% for allfriends in @allfriends_friendrequest_received %>
             <%= render 'partial/all_friends_list', allfriends:allfriends %>
@@ -40,8 +40,7 @@ You are currently logged in as <%= current_user.name %>
         <% next %>
     <% else %>
         <p class="user-class-<%= user.id %>">
-            <%= user.id %>
-            <%= user.email %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true %>
+            <%= user.name %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true %>
         </p>
     <% end %>
 
