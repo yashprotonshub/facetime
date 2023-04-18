@@ -29,10 +29,13 @@
             Requests
             </a>
             <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
-            
-              <% for allrequests in @allrequests %>
-                <li class="friendrequest-<%= allrequests.id %>"> <h6 class="dropdown-header"> You have a request from <%= User.find(allrequests.sender_id).email %> </h6> </li>  
-                <li class="friendrequest-<%= allrequests.id %>"><%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true, class: "dropdown-item" %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true, class: "dropdown-item" %></li>
+              <% if @allrequests.present? %>
+                <% for allrequests in @allrequests %>
+                  <li class="friendrequest-<%= allrequests.id %>"> <h6 class="dropdown-header"> You have a request from <%= User.find(allrequests.sender_id).email %> </h6> </li>  
+                  <li class="friendrequest-<%= allrequests.id %>"><%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true, class: "dropdown-item" %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true, class: "dropdown-item" %></li>
+                <% end %>
+              <% else %>
+                  <li> <h6 class="dropdown-header"> You have no Request </h6> </li>
               <% end %>
             </ul>
           </li>
@@ -45,7 +48,11 @@
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= image_tag( current_user.image , class: "user-profile-image") %>
+            <% if current_user.image.attached? %>
+              <%= image_tag( current_user.image , class: "user-profile-image") %>
+            <% else %>
+              Options
+            <% end %>
           </a>
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
             
