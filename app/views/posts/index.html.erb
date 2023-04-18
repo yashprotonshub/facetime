@@ -1,9 +1,9 @@
 You are currently logged in as <%= current_user.email %>
-<h1> All Posts </h1>
+<h1 style="text-align: center;"> All Posts </h1>
 
 <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
-        <p>
+        <p style="text-align: center;">
             <%= link_to post.title , user_post_path(current_user.id, post.id) %> <br>
             By <%= User.find(post.user_id).email %> <br>
             <% if post.user_id == current_user.id %>
@@ -13,7 +13,9 @@ You are currently logged in as <%= current_user.email %>
         </p>
     </div>
 <% end %>
-<%= link_to "New Post", new_user_post_path(current_user) %>
+<br>
+<%= link_to "New Post", new_user_post_path(current_user), style: "text-decoration:none ; text-align: center;  " %>
+
 <h2> ALl request </h2>
 <% for allrequests in @allrequests %>
     <p class="friendrequest-<%= allrequests.id %>">
