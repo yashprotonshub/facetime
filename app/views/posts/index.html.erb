@@ -1,4 +1,14 @@
-<div style="text-align: center; padding-top:10px; padding-bottom:10px;"> You are currently logged in as <%= current_user.name %> </div>
+<% if current_user && user_signed_in? %>
+        <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, <%= current_user.name%>! &nbsp;&nbsp; Welcome to Facetime 
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+<% end %>
+
 <h1 style="text-align: center;"> All Posts </h1>
 
 <% for post in @all_posts %>
@@ -50,6 +60,17 @@
 <br>
 
 <br><br>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toastEl = document.querySelector('.toast')
+      var toast = new bootstrap.Toast(toastEl)
+      <% if current_user && user_signed_in? %>
+        toast.show()
+      <% end %>
+      
+    })
+</script>
+  
 
 
 
