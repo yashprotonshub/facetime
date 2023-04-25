@@ -40,7 +40,7 @@ You are currently logged in as <%= current_user.name %>
         <% next %>
     <% else %>
         <p class="user-class-<%= user.id %>">
-            <%= user.name %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true %>
+            <%= link_to user.name, user_profile_page_path(user.id), style:"text-decoration:none;" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true %>
         </p>
     <% end %>
 
