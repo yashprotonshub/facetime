@@ -5,8 +5,13 @@
         By 
         <%= link_to User.find(user_comment.user_id).name, user_profile_page_path(user_comment.user_id), class:"link-to-title" %><br>
         <% if user_comment.user_id == current_user.id %>
-            <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true, class:"btn btn-danger" %>   
-            <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"btn btn-success"%><br>
+            <div class="dropdown ">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"> Options </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true, class:"dropdown-item" %>   
+                    <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"dropdown-item"%><br>
+                </ul>
+            </div>
         <% end %>
     </p>
 </div>
