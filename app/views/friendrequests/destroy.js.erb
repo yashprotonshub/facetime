@@ -1,3 +1,8 @@
 $( ".friendrequest-<%= @friend.id %>").remove();
 
-$(".friendship-<%= @friend.id %>").remove();
+var $userClass2 = $('.user-class-<%= @friend.receiver_id %>');
+
+    var $sendFriendRequest = $userClass2.find('a');
+
+   
+    $userClass2.html('<%= link_to User.find(@friend.receiver_id).name, user_profile_page_path(@friend.receiver_id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: @friend.receiver_id), method: :post, remote:true, class:"btn btn-primary" %>');
