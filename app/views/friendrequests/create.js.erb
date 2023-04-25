@@ -4,6 +4,6 @@ var $userClass2 = $('.user-class-<%= @friend.receiver_id %>');
     var $sendFriendRequest = $userClass2.find('a');
 
    
-    $userClass2.text('<%= link_to "Undo", user_friendrequest_path(@friend.sender_id, @friend.receiver_id) %>');
+    $userClass2.html('Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, @friend ), method: :delete, remote:true ,class:"btn btn-info" %>');
 
     $sendFriendRequest.hide();
