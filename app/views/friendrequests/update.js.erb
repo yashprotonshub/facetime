@@ -1,3 +1,4 @@
 
 $( ".friendrequest-<%= @friend.id %>").remove();
 $( "#allfriendslist").append("<%= j render 'partial/all_friends_list' ,  allfriends:@friend   %>");
+$('.user-class-<%= @friend.sender_id %>').remove();

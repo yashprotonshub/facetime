@@ -1,5 +1,5 @@
 $( ".friendrequest-<%= @friend.id %>").remove();
-
+$( ".friendship-<%= @friend.id %>").remove();
 var $userClass2 = $('.user-class-<%= @friend.receiver_id %>');
 
     var $sendFriendRequest = $userClass2.find('a');
