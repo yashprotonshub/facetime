@@ -32,7 +32,7 @@
 <br>
 <%= link_to "New Post", new_user_post_path(current_user), class:"btn btn-info my-name-button" %>
 
-<h2> ALl request </h2>
+<h2> ALL request </h2>
 <% for allrequests in @allrequests %>
     <p class="friendrequest-<%= allrequests.id %>">
         <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true %>
@@ -55,14 +55,20 @@
     <% if user.id== current_user.id %>
         <% next %>
     <% else %>
-        <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present? %>
+        <% if Friendrequest.find_by(sender_id:user.id, status:"pending", receiver_id:current_user.id).present? %>
             <p class="user-class-<%= user.id %>">
-                Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+                <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> sends you Friendrequest
             </p>
         <% else %>
-            <p class="user-class-<%= user.id %>">
-                <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
-            </p>
+            <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present? %>
+                <p class="user-class-<%= user.id %>">
+                    Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+                </p>
+            <% else %>
+                <p class="user-class-<%= user.id %>">
+                    <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
+                </p>
+            <% end %>
         <% end %>
     <% end %>
 
