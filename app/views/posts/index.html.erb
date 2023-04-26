@@ -56,7 +56,9 @@
         <% next %>
     <% else %>
         <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present? %>
-            Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+            <p class="user-class-<%= user.id %>">
+                Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+            </p>
         <% else %>
             <p class="user-class-<%= user.id %>">
                 <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
