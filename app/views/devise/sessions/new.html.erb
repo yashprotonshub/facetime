@@ -9,7 +9,7 @@
 </head>
 
 <body class="html-class">
-    <div class="login-text"> <p class="fw-lighter">Welcome to</p> <p class="fw-bold">Facetime </p></div>
+    <div class="login-text"> <p class="fw-lighter" style="color:white">Welcome to</p> <p class="fw-bold" style="color:white">Facetime </p></div>
     <div class="login-image">
         <%= image_tag  'gettyImages.jpeg' , class:"image"%>
     </div>
@@ -19,12 +19,12 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <div class="field">
                 
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email Address", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email Address", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
             </div>
       
             <div class="field">
                 <br>
-                <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;"%>
+                <%= f.password_field :password, autocomplete: "current-password", placeholder: "Password", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white"%>
             </div>
       
             <div class="log-in-button">
@@ -45,7 +45,7 @@
     </script>
     <style>
         ::placeholder {
-          color: grey;
+          color: white;
         }
     </style>
     

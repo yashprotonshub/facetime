@@ -91,11 +91,12 @@
   transform: translate(-50%, -50%);
   
 }
+
 .login-box-signup {
   width: 400px;
   height: 600px;
   border-radius: 10px;
-  border: 2px solid grey;
+  border: 2px solid black;
   background-color: black;
 
   padding: 50px;
@@ -120,6 +121,7 @@
   left: 10%;
   font-size: 100px;
   z-index: 999;
+  
 }
 
 .login-text-signup {
@@ -165,4 +167,9 @@
 .image {
   width: 100%;
   filter: blur(0.7rem);
+}
+
+
+input[type="text"] {
+  color: red;
 }

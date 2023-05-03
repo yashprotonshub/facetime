@@ -11,9 +11,9 @@
 
 <body class="html-class">
   <div class="login-text-signup">
-    <p class="fw-lighter">Sign Up to enter</p>
-    <p class="fw-bold"> World of </p>
-    <p class="fw-bold"> Facetime</p>
+    <p class="fw-lighter" style="color:white">Sign Up to enter</p>
+    <p class="fw-bold" style="color:white"> World of </p>
+    <p class="fw-bold" style="color:white"> Facetime</p>
   </div>
   <div class="login-image">
     <%= image_tag 'gettyImages.jpeg' , class:"image"%>
@@ -24,30 +24,30 @@
       <%= render "devise/shared/error_messages" , resource: resource %>
         
         <div class="field">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email Address", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;"  %><br>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email Address", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px;color:white"  %><br>
         </div>
 
         <div class="field">
             <br>
-              <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password (6 Characters minnimum)", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;"  %>
+              <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password (6 Characters minnimum)", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px;color:white"  %>
       
         </div>
 
         <div class="field">
             <br>
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Password Confirmation", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;"  %>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Password Confirmation", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px;color:white"  %>
         </div>
 
 
         <div class="field">
           <br>
-            <%= f.text_field :name , placeholder: "Password Confirmation", class: "clear-on-focus", style:" background-color: black;border: 2px solid white; width:300px; height: 50px;"%>
+            <%= f.text_field :name , placeholder: "Password Confirmation", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px;color:white"%>
         </div>
 
         <div class="field">
           <br>
-          <%= f.label :Profile %><br />
-            <%= f.file_field :image %> <br />
+          <%= f.label :Profile , style:"color:white"%><br />
+            <%= f.file_field :image , style:"color:white"%> <br />
         </div>
 
 
@@ -67,7 +67,7 @@
   </script>
   <style>
     ::placeholder {
-      color: grey;
+      color: white;
     }
   </style>
 </body>
