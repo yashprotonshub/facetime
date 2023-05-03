@@ -1,4 +1,13 @@
-<% if current_user && user_signed_in? %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="html-class-index">
+    <% if current_user && user_signed_in? %>
         <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body">
@@ -7,11 +16,9 @@
                 <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
         </div>
-<% end %>
-
-<h1 style="text-align: center;"> All Posts </h1>
-
-<% for post in @all_posts %>
+    <% end %>
+    <h1 style="text-align: center;"> All Posts </h1>
+    <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
         <p style="text-align: center;">
             <%= link_to post.title , user_post_path(current_user.id, post.id), class:"link-to-title" %> <br>
@@ -28,73 +35,90 @@
             <% end %>
         </p>
     </div>
-<% end %>
-<br>
-<%= link_to "New Post", new_user_post_path(current_user), class:"btn btn-info my-name-button" %>
-
-<h2> ALL request </h2>
-<% for allrequests in @allrequests %>
-    <p class="friendrequest-<%= allrequests.id %>">
-        <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true %>
-    </p>
-<% end %>
-
-<h3> All Friends </h3>
-
-<div id="allfriendslist">
-    <% for allfriends in @allfriends_friendrequest_sent %>
-        <%= render 'partial/all_friends_list_sent', allfriends:allfriends %>
     <% end %>
-    <% for allfriends in @allfriends_friendrequest_received %>
-        <%= render 'partial/all_friends_list', allfriends:allfriends %>
-    <% end %>    
-</div>
-<br>
-<h4> All USers </h4>
-<div class="allusers" >
+    <br>
+    <%= link_to "New Post", new_user_post_path(current_user), class:"btn btn-info my-name-button" %>
 
-    <% for user in @allusers %>
-        <% if user.id== current_user.id %>
-            <% next %>
-        <% else %>
-            <% if Friendrequest.find_by(sender_id:user.id, status:"pending", receiver_id:current_user.id).present? %>
-                <p class="user-class-<%= user.id %>">
-                    <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> sends you Friendrequest
-                </p>
+    <h2> ALL request </h2>
+    <% for allrequests in @allrequests %>
+        <p class="friendrequest-<%= allrequests.id %>">
+            <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true %>
+        </p>
+    <% end %>
+    <h3> All Friends </h3>
+    <div id="allfriendslist">
+        <% for allfriends in @allfriends_friendrequest_sent %>
+            <%= render 'partial/all_friends_list_sent', allfriends:allfriends %>
+        <% end %>
+        <% for allfriends in @allfriends_friendrequest_received %>
+            <%= render 'partial/all_friends_list', allfriends:allfriends %>
+        <% end %>    
+    </div>
+    <br>
+    <h4> All USers </h4>
+    <div class="allusers" >
+
+        <% for user in @allusers %>
+            <% if user.id== current_user.id %>
+                <% next %>
             <% else %>
-                <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present?  %>
+                <% if Friendrequest.find_by(sender_id:user.id, status:"pending", receiver_id:current_user.id).present? %>
                     <p class="user-class-<%= user.id %>">
-                        Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+                        <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> sends you Friendrequest
                     </p>
                 <% else %>
-                    <% if Friendrequest.find_by(sender_id:current_user.id, status:"approved", receiver_id:user.id).present? || Friendrequest.find_by(sender_id:user.id, status:"approved", receiver_id:current_user.id).present? %>
-                        <% next %>
-                    <% else %>
+                    <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present?  %>
                         <p class="user-class-<%= user.id %>">
-                            <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
+                            Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
                         </p>
+                    <% else %>
+                        <% if Friendrequest.find_by(sender_id:current_user.id, status:"approved", receiver_id:user.id).present? || Friendrequest.find_by(sender_id:user.id, status:"approved", receiver_id:current_user.id).present? %>
+                            <% next %>
+                        <% else %>
+                            <p class="user-class-<%= user.id %>">
+                                <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
+                            </p>
+                        <% end %>
                     <% end %>
                 <% end %>
             <% end %>
+        
         <% end %>
-    
-    <% end %>
-    
-</div>
-<br>
-<br>
+        
+    </div>
+    <br>
+    <br>
+    <br><br>
 
-<br><br>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var toastEl = document.querySelector('.toast')
-      var toast = new bootstrap.Toast(toastEl)
-      <% if current_user && user_signed_in? %>
-        toast.show()
-      <% end %>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var toastEl = document.querySelector('.toast')
+        var toast = new bootstrap.Toast(toastEl)
+        <% if current_user && user_signed_in? %>
+            toast.show()
+        <% end %>
       
-    })
-</script>
+        })
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
 
