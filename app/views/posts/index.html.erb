@@ -7,6 +7,42 @@
     <title>Document</title>
 </head>
 <body class="html-class-index">
+    <div class="rectangle-box">
+        <div class="allusers" >
+            <h4 style="text-align: center; margin-top: 15px;"> All USers </h4>
+            <div class="all-users-div">
+                <% for user in @allusers %>
+                    <% if user.id== current_user.id %>
+                        <% next %>
+                    <% else %>
+                        <% if Friendrequest.find_by(sender_id:user.id, status:"pending", receiver_id:current_user.id).present? %>
+                            <p class="user-class-<%= user.id %>">
+                                <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> sends you Friendrequest
+                            </p>
+                        <% else %>
+                            <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present?  %>
+                                <p class="user-class-<%= user.id %>">
+                                    Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
+                                </p>
+                            <% else %>
+                                <% if Friendrequest.find_by(sender_id:current_user.id, status:"approved", receiver_id:user.id).present? || Friendrequest.find_by(sender_id:user.id, status:"approved", receiver_id:current_user.id).present? %>
+                                    <% next %>
+                                <% else %>
+                                    <p class="user-class-<%= user.id %>">
+                                        <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
+                                    </p>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                                
+                <% end %>
+            </div>
+                                
+        </div>
+
+
+    </div>
     <% if current_user && user_signed_in? %>
         <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="d-flex">
@@ -17,17 +53,26 @@
             </div>
         </div>
     <% end %>
-    <h1 style="text-align: center;"> All Posts </h1>
+    
     <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
+        
         <div class="user-unique-post">
-            <%= image_tag(current_user.image, class:"user-profile-image") %>
+            
+            <% if User.find(post.user_id).image.attached? %>
+                <%= image_tag(User.find(post.user_id).image, class:"user-profile-image") %>
+              
+            <% else %>
+              
+            <% end %>
+
+            
             
             <div class="user-info"> 
                     <div class="edit-line-comment"></div>
                     <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %></p> 
                     <p class="user-post-time"><%= post.created_at.strftime("%d/%b/%y") %> </p> 
-                    <div class="post-content"> <%= post.body %></div> 
+                     <div class="post-content"><%= link_to post.body , user_post_path(current_user.id, post.id), style:"text-decoration:none; color:inherit;" %></div> 
                     <%= link_to "Delete", user_post_path(current_user.id, post.id), method: :delete, remote: true, class:"delete-button btn btn-outline-light" %>  
                     <%= link_to "Edit", edit_user_post_path(current_user.id, post.id), class:"btn1 btn btn-outline-light" %> 
             </div>
@@ -55,37 +100,8 @@
         <% end %>    
     </div>
     <br>
-    <h4> All USers </h4>
-    <div class="allusers" >
-
-        <% for user in @allusers %>
-            <% if user.id== current_user.id %>
-                <% next %>
-            <% else %>
-                <% if Friendrequest.find_by(sender_id:user.id, status:"pending", receiver_id:current_user.id).present? %>
-                    <p class="user-class-<%= user.id %>">
-                        <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> sends you Friendrequest
-                    </p>
-                <% else %>
-                    <% if Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id).present?  %>
-                        <p class="user-class-<%= user.id %>">
-                            Friend Request send! <%= link_to "Undo", user_friendrequest_path(current_user, Friendrequest.find_by(sender_id:current_user.id, status:"pending", receiver_id:user.id) ), method: :delete, remote:true ,class:"btn btn-info" %>
-                        </p>
-                    <% else %>
-                        <% if Friendrequest.find_by(sender_id:current_user.id, status:"approved", receiver_id:user.id).present? || Friendrequest.find_by(sender_id:user.id, status:"approved", receiver_id:current_user.id).present? %>
-                            <% next %>
-                        <% else %>
-                            <p class="user-class-<%= user.id %>">
-                                <%= link_to user.name, user_profile_page_path(user.id), class:"link-to-title" %> <%= link_to "send friend request", user_friendrequests_path( current_user.id, receiver_id: user.id), method: :post, remote:true, class:"btn btn-primary" %>
-                            </p>
-                        <% end %>
-                    <% end %>
-                <% end %>
-            <% end %>
-        
-        <% end %>
-        
-    </div>
+    
+   
     <br>
     <br>
     <br><br>
