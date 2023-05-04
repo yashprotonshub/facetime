@@ -20,20 +20,16 @@
     <h1 style="text-align: center;"> All Posts </h1>
     <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
-        <p style="text-align: center;">
-            <%= link_to post.title , user_post_path(current_user.id, post.id), class:"link-to-title" %> <br>
-            By <%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %> <br>
-            
-            <% if post.user_id == current_user.id %>
-                <div class="dropdown div-element">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"> Options </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <li> <%= link_to "Delete", user_post_path(current_user.id, post.id), method: :delete, remote: true, class:"dropdown-item" %> </li>
-                        <li> <%= link_to "Edit", edit_user_post_path(current_user.id, post.id), class:"dropdown-item" %> </li>
-                    </ul>
-                </div>
-            <% end %>
-        </p>
+        <div class="user-unique-post">
+            <%= image_tag(current_user.image, class:"user-profile-image") %>
+            <div class="user-info"> 
+                
+                    <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %></p> 
+                    <p class="user-post-time"><%= post.created_at.strftime("%d/%b/%y") %> </p> 
+             
+                
+            </div>
+        </div>
     </div>
     <% end %>
     <br>

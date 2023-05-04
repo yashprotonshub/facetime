@@ -5,6 +5,9 @@
     border-radius: 50%;
     width: 50px; /* set the width and height to the desired size */
     height: 50px;
+    top: 50%;
+    left: 60%;
+    transform: translate(20%, 18%);
   }
 
 .my-name-button {
@@ -20,3 +23,39 @@
   background-color:#303338;
 }
 
+.user-unique-post {
+  width: 400px;
+  height: 200px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  border: 2px solid black;
+  background-color: black;
+  top: 50%;
+  left: 60%;
+  transform: translate(180%, 0%);
+  display: flex;
+}
+
+.user-post-username{
+ 
+  
+  margin-left: 16px;
+  margin-top: 10px;
+  font-size: 9px;
+  align-content: flex-start;
+  height: 20px;
+  width: 120px;
+}
+
+.user-post-time{
+  
+  top: 40px ;
+  left: 60px;
+  font-size: 7px;
+  margin-left: 16px;
+  margin-top: -20px;
+}
+
+.user-info{
+  
+}
