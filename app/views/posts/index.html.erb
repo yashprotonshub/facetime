@@ -7,6 +7,21 @@
     <title>Document</title>
 </head>
 <body class="html-class-index">
+    <div class="left-rectangle-box"> 
+        <h3 style="text-align: center; margin-top: 15px;"> All Friends </h3>
+        <div class="all-users-div">
+
+            <div id="allfriendslist">
+                <% for allfriends in @allfriends_friendrequest_sent %>
+                    <%= render 'partial/all_friends_list_sent', allfriends:allfriends %>
+                <% end %>
+                <% for allfriends in @allfriends_friendrequest_received %>
+                    <%= render 'partial/all_friends_list', allfriends:allfriends %>
+                <% end %>    
+            </div>
+        </div>
+
+    </div>
     <div class="rectangle-box">
         <div class="allusers" >
             <h4 style="text-align: center; margin-top: 15px;"> All USers </h4>
@@ -43,16 +58,7 @@
 
 
     </div>
-    <% if current_user && user_signed_in? %>
-        <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-                <div class="toast-body">
-                    Hello, <%= current_user.name%>! &nbsp;&nbsp; Welcome to Facetime 
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        </div>
-    <% end %>
+    
     
     <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
@@ -84,24 +90,10 @@
     </div>
     <% end %>
     <br>
-    <%= link_to "New Post", new_user_post_path(current_user), class:"btn btn-info my-name-button" %>
 
-    <h2> ALL request </h2>
-    <% for allrequests in @allrequests %>
-        <p class="friendrequest-<%= allrequests.id %>">
-            <%= User.find(allrequests.sender_id).email %> <%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true %>
-        </p>
-    <% end %>
-    <h3> All Friends </h3>
-    <div id="allfriendslist">
-        <% for allfriends in @allfriends_friendrequest_sent %>
-            <%= render 'partial/all_friends_list_sent', allfriends:allfriends %>
-        <% end %>
-        <% for allfriends in @allfriends_friendrequest_received %>
-            <%= render 'partial/all_friends_list', allfriends:allfriends %>
-        <% end %>    
-    </div>
-    <br>
+
+  
+   
     
    
     <br>

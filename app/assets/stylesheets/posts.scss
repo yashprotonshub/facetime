@@ -36,6 +36,14 @@
   color: white;
 }
 
+.left-rectangle-box{
+  left: 0;
+  height: 500px;
+  width: 500px;
+  position: absolute;
+  color: white;
+}
+
 .delete-button{
   
   position: absolute; 
@@ -107,5 +115,12 @@
 }
 
 .all-users-div{
-  padding: 50px;
+  margin-top: 40px;
+  margin-left: 40px;
+}
+
+.toast-class{
+  position: absolute;
+  margin-left: 180px;
+  width: 1000px;
 }

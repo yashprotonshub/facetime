@@ -15,6 +15,19 @@
             <%= link_to "Home", user_posts_path(current_user), class:"nav-link active" %>
           </li>
         <% end %>
+        <% if current_user && user_signed_in? %>
+          <div class="toast-class">
+
+            <div class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-class d-flex">
+                    <div class="toast-body">
+                      <li class="nav-item">Hello, <%= current_user.name%>! &nbsp;&nbsp; Welcome to Facetime </li> 
+                    </div>
+                    
+                </div>
+            </div>
+          </div>
+        <% end %>
   
           
   
@@ -31,7 +44,7 @@
             <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
               <% if @allrequests.present? %>
                 <% for allrequests in @allrequests %>
-                  <li class="friendrequest-<%= allrequests.id %>"> <h6 class="dropdown-header"> You have a request from <%= User.find(allrequests.sender_id).email %> </h6> </li>  
+                  <li class="friendrequest-<%= allrequests.id %>"> <h6 class="dropdown-header"> You have a request from <%= User.find(allrequests.sender_id).name %> </h6> </li>  
                   <li class="friendrequest-<%= allrequests.id %>"><%= link_to "Accept", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :patch, remote:true, class: "dropdown-item" %> <%= link_to "Reject", user_friendrequest_path(current_user, allrequests.id, friendrequest_id: allrequests.id ), method: :delete, remote:true, class: "dropdown-item" %></li>
                 <% end %>
               <% else %>
