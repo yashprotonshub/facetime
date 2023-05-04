@@ -58,12 +58,12 @@
 
 
     </div>
-    
+
     
     <% for post in @all_posts %>
     <div class="user-post-<%= post.id %>">
         
-        <div class="user-unique-post">
+       <div  class="user-unique-post">
             
             <% if User.find(post.user_id).image.attached? %>
                 <%= image_tag(User.find(post.user_id).image, class:"user-profile-image") %>
@@ -75,7 +75,6 @@
             
             
             <div class="user-info"> 
-                    <div class="edit-line-comment"></div>
                     <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %></p> 
                     <p class="user-post-time"><%= post.created_at.strftime("%d/%b/%y") %> </p> 
                     <div class="post-content"><%= link_to post.body , user_post_path(current_user.id, post.id), style:"text-decoration:none; color:inherit;" %></div> 
