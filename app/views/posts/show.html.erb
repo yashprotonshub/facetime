@@ -1,60 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body class="html-class-index">
-    <div  class="user-unique-post">
-            
-        <% if User.find(@post.user_id).image.attached? %>
-            <%= image_tag(User.find(@post.user_id).image, class:"user-profile-image") %>
-          
-        <% else %>
-          
-        <% end %>
+You are logged in as <%= current_user.name %><br><br>
 
-        
-        
-        <div class="user-info"> 
-                <p class="user-post-username"><%= link_to User.find(@post.user_id).name, user_profile_page_path(@post.user_id), class:"link-to-title" %></p> 
-                <p class="user-post-time"><%= @post.created_at.strftime("%d/%b/%y") %> </p> 
-                <div class="post-content"><%= @post.body %></div> 
-                <% if @post.user_id == current_user.id %>
-                    <%= link_to "Delete", user_post_path(current_user.id, @post.id), method: :delete, remote: true, class:"delete-button btn btn-outline-light" %>  
-                    <%= link_to "Edit", edit_user_post_path(current_user.id, @post.id), class:"btn1 btn btn-outline-light" %> 
-                <% end %>
-        </div>
-         
-        
-    </div>
+<%= @post.title %> <br>
+<%= @post.body %> <br>
+<div id="comments_id" >
 
-    <div class="user-unique-post">
-        <div id="comments_id" >
-            <% @all_comments.each do |allcomment|    %>
-                <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
-            <% end %>
-            <%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
-                <div>
-                    <%= f.label :comment %>
-                </div>
-                <div>
-                    <%= f.text_area :body %>
-                </div>
-                <div>
-                    <%= f.submit %>
-                </div>
-            <%  end %>
-            <%= link_to "Back", root_path %>
-        </div>
+    <% @all_comments.each do |allcomment|    %>
+        <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
+    <% end %>
+</div>
+<%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
+    <div>
+
+        <%= f.label :comment %>
     </div>
-      
-        
-    
+    <div>
+
+        <%= f.text_area :body %>
+    </div>
+    <div>
+
+        <%= f.submit %>
+    </div>
+<%  end %>
 <br>
-    
-  
-</body>
-</html>
+<%= link_to "Back", root_path %>
