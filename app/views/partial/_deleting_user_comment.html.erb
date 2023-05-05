@@ -1,17 +1,18 @@
-<br>
 <div class="user-<%= user_comment.id %>">
-    <p>
-        <%= user_comment.body %> <br> 
-        By 
-        <%= link_to User.find(user_comment.user_id).name, user_profile_page_path(user_comment.user_id), class:"link-to-title" %><br>
-        <% if user_comment.user_id == current_user.id %>
-            <div class="dropdown ">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false"> Options </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote:true, class:"dropdown-item" %>   
-                    <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"dropdown-item"%><br>
-                </ul>
-            </div>
+    <div class="user-unique-post">
+        <% if User.find(user_comment.user_id).image.attached? %>
+            <%= image_tag(User.find(user_comment.user_id).image, class:"user-profile-image") %>
+        <% else %>
         <% end %>
-    </p>
-</div>
+        <div class="user-info"> 
+            <p class="user-post-username"><%= link_to User.find(user_comment.user_id).name, user_profile_page_path(user_comment.user_id), class:"link-to-title" %></p> 
+            <p class="user-post-time"><%= user_comment.created_at.strftime("%d/%b/%y") %> </p> 
+            <div class="post-content"><%= user_comment.body %></div>
+            <% if user_comment.user_id == current_user.id %>
+                <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote: true, class:"delete-button btn btn-outline-light" %>  
+                <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"btn1 btn btn-outline-light" %> 
+            <% end %> 
+            
+        </div>
+    </div>
+</div>  

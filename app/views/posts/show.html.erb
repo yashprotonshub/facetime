@@ -1,26 +1,74 @@
-You are logged in as <%= current_user.name %><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="html-class-index">
+    
 
-<%= @post.title %> <br>
-<%= @post.body %> <br>
+
+
+
+<div class="user-unique-post">
+            
+    <% if User.find(@post.user_id).image.attached? %>
+        <%= image_tag(User.find(@post.user_id).image, class:"user-profile-image") %>
+      
+    <% else %>
+      
+    <% end %>
+
+    
+    
+    <div class="user-info"> 
+            <p class="user-post-username"><%= link_to User.find(@post.user_id).name, user_profile_page_path(@post.user_id), class:"link-to-title" %></p> 
+            <p class="user-post-time"><%= @post.created_at.strftime("%d/%b/%y") %> </p> 
+            <div class="post-content"><%= link_to @post.body , user_post_path(current_user.id, @post.id), style:"text-decoration:none; color:inherit;" %></div> 
+            
+    </div>
+     
+    
+</div>
+
+
+
+
+
+
+
 <div id="comments_id" >
 
     <% @all_comments.each do |allcomment|    %>
         <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
     <% end %>
 </div>
-<%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
-    <div>
 
-        <%= f.label :comment %>
-    </div>
-    <div>
+<div class="user-unique-post">
 
-        <%= f.text_area :body %>
+    <%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
+    <div class="form-class">
+        <%= f.text_area :body,  placeholder: "Add a comment", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
+        <%= f.submit class:"form-submit-button" %>
     </div>
-    <div>
-
-        <%= f.submit %>
-    </div>
-<%  end %>
-<br>
-<%= link_to "Back", root_path %>
+        
+    
+    <%  end %>
+    <br>
+</div>
+<script>
+    $(document).ready(function() {
+      $('.clear-on-focus').focus(function() {
+        $(this).val('');
+      });
+    });
+</script>
+<style>
+    ::placeholder {
+      color: white;
+    }
+</style>
+</body>
+</html>
