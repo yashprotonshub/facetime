@@ -78,11 +78,12 @@
                     
                     <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %></p> 
                     <p class="user-post-time"><%= post.created_at.strftime("%d/%b/%y") %> </p> 
-                    <div class="post-content"><%= link_to post.body , user_post_path(current_user.id, post.id), style:"text-decoration:none; color:inherit;" %></div> 
+                    <div class="post-content"><div class="post-<%= post.id %>"><%= link_to post.body , user_post_path(current_user.id, post.id), style:"text-decoration:none; color:inherit;" %></div></div>
                     <% if post.user_id == current_user.id %>
                         <div class="edit-line-comment"></div>
                         <%= link_to "Delete", user_post_path(current_user.id, post.id), method: :delete, remote: true, class:"delete-button btn btn-outline-light" %>  
-                        <%= link_to "Edit", edit_user_post_path(current_user.id, post.id), class:"btn1 btn btn-outline-light" %> 
+                        <%= link_to "Edit", edit_user_post_path(current_user.id, post.id), class:"btn1 btn btn-outline-light", data:{ bs_toggle: "modal", bs_target: "#newusermodal", remote: true } %>
+
                     <% end %>
             </div>
              
@@ -91,7 +92,25 @@
     </div>
     <% end %>
     <br>
+    <!-- Button trigger modal -->
+  
+  <!-- Button trigger modal -->
 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="newusermodal" tabindex="-1" aria-labelledby="newusermodalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newusermodalLabel">Edit Post </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="newusermodal">
+        
+        </div>
+        
+    </div>
+  </div>
 
   
    
