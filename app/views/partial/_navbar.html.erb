@@ -70,12 +70,25 @@
           <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDarkDropdownMenuLink">
               <li><%= link_to "Your Profile", user_profile_page_path(current_user.id), class:"dropdown-item" %> </li>
               <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
-              <li><%= link_to "New Post", new_user_post_path(current_user), class:"dropdown-item" %></li>
+              <li><%= link_to "New Post", new_user_post_path(current_user), class:"dropdown-item", data:{ bs_toggle: "modal", bs_target: "#newpostmodal", remote: true }  %></li>
               
            
           </ul>
         </li>
       </ul>
+    </div>
+    <div class="modal fade" id="newpostmodal" tabindex="-1" aria-labelledby="newpostmodalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newpostmodalLabel">New Post </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="newpostmodal">
+          
+          </div>
+          
+      </div>
     </div>
     <% end %>
   </nav>

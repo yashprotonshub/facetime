@@ -1,0 +1,15 @@
+<%= form_with model:[current_user, post] do |f| %>
+    <div class="modal-body">
+        <%= f.label :name %>
+        <%= f.text_field :title %>
+    </div>
+    <div>
+        <%= f.label :body %>
+        <%= f.text_area :body %>
+    </div>
+    <div class="modal-footer">
+        <%= f.submit %>
+    </div>
+    
+<% end %>
+
