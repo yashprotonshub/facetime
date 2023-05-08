@@ -7,36 +7,12 @@
         <div class="user-info"> 
             <p class="user-post-username"><%= link_to User.find(user_comment.user_id).name, user_profile_page_path(user_comment.user_id), class:"link-to-title" %></p> 
             <p class="user-post-time"><%= user_comment.created_at.strftime("%d/%b/%y") %> </p> 
-            <div class="post-content"><div class="post-<%= user_comment.post_id %>"><%= user_comment.body %></div></div>
+            <div class="post-content"><%= user_comment.body %></div>
             <% if user_comment.user_id == current_user.id %>
                 <%= link_to "Delete", user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), method: :delete, remote: true, class:"delete-button btn btn-outline-light" %>  
-                <%= link_to "Edit Comment", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"btn1 btn btn-outline-light", data:{ bs_toggle: "modal", bs_target: "#newcommentsmodal", remote: true } %> 
+                <%= link_to "Edit", edit_user_post_comment_path(current_user.id, user_comment.post_id, user_comment.id), class:"btn1 btn btn-outline-light" %> 
             <% end %> 
             
         </div>
     </div>
-
-    <div class="modal fade" id="newcommentsmodal" tabindex="-1" aria-labelledby="newcommentsmodalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newcommentsmodalLabel">Edit Comment </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="newcommentsmodal">
-        
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
 </div>  

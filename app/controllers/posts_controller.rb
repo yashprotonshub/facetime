@@ -36,6 +36,9 @@ class PostsController < ApplicationController
         @post=Post.find(params[:id])
         @post.update(post_params)
         @post_body= @post.body
+        
+
+        #redirect_to user_post_path(current_user.id, @post.id)
         respond_to do |format|
             format.html { redirect_to root_path }
             format.js 
