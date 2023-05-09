@@ -1,18 +1,21 @@
 <%= form_with(model:[current_user, post], remote:true) do |f| %>
     <div class="modal-body">
-        <div>
-            <%= f.label :title %>
-            <%= f.text_field :title %>
+        <div style="margin-top: 20px; margin-left: 50px;">
+            <%= f.text_field :title, placeholder: "Post Title", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
         </div>
     
-        <div>
-            <%= f.label :body %>
-            <%= f.text_area :body %>
+        <div style="margin-top: 20px; margin-left: 50px;">
+            <%= f.text_area :body, placeholder: "Post Body", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <%= f.submit "Save Changes", class: "btn btn-primary"  %>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <%= f.submit "Save Changes", class: "btn btn-outline-primary"  %>
         
     </div>
 <% end %>
+<style>
+    ::placeholder {
+      color: white;
+    }
+</style>

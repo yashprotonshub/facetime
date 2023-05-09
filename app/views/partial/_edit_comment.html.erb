@@ -1,12 +1,17 @@
 <%= form_with(model:[@user, post, comment], remote:true) do |f| %>
     <div class="modal-body">
         <br>
-        <%= f.label :body %> <br> 
-        <%= f.text_field :body %> <br>
+        <%= f.text_field :body, placeholder: "Comment", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %> <br>
     </div>
 
     <div class="modal-footer"></div> 
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <%= f.submit "Save Changes", class: "btn btn-primary"%>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        
+        <%= f.submit class:"btn btn-outline-success"  %>
     </div>
 <% end %>
+<style>
+    ::placeholder {
+      color: white;
+    }
+</style>
