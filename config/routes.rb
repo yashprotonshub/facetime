@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'details/index'
   devise_for :users
   get "/users", to: "details#index"
   root "posts#index"
