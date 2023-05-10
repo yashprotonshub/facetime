@@ -9,6 +9,7 @@ class PostsController < ApplicationController
         @allfriends_friendrequest_received = User.find(current_user.id).friend_requests_received.where(status:"approved")
         @allfriends_friendrequest_sent = User.find(current_user.id).friend_requests_sent.where(status:"approved")
         @all_posts= Post.all
+         
         
     end
     def create

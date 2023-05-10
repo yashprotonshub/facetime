@@ -64,4 +64,5 @@ gem 'devise'
 gem 'hirb', '~> 0.7.3'
 gem 'jquery-rails', '~> 4.4'
 gem 'htmlbeautifier'
+gem 'will_paginate', '~> 3.3'
 

@@ -7,68 +7,38 @@
     <title>Document</title>
 </head>
 <body class="html-class-index">
-    
 
-
-
-
-<div class="user-unique-post">
-            
-    <% if User.find(@post.user_id).image.attached? %>
-        <%= image_tag(User.find(@post.user_id).image, class:"user-profile-image") %>
-      
-    <% else %>
-      
-    <% end %>
-
-    
-    
-    <div class="user-info"> 
+    <div class="user-unique-post">
+        <% if User.find(@post.user_id).image.attached? %>
+            <%= image_tag(User.find(@post.user_id).image, class:"user-profile-image") %>
+        <% else %>
+        <% end %>
+        <div class="user-info"> 
             <p class="user-post-username"><%= link_to User.find(@post.user_id).name, user_profile_page_path(@post.user_id), class:"link-to-title" %></p> 
             <p class="user-post-time"><%= @post.created_at.strftime("%d/%b/%y") %> </p> 
-            <div class="post-content"><%= link_to @post.body , user_post_path(current_user.id, @post.id), style:"text-decoration:none; color:inherit;" %></div> 
-            
+            <div class="post-content">
+                <%= link_to @post.body , user_post_path(current_user.id, @post.id), style:"text-decoration:none; color:inherit;" %>
+            </div> 
+        </div>
     </div>
-     
-    
-</div>
-
-
-
-
-
-
-
-<div id="comments_id" >
-
-    <% @all_comments.each do |allcomment|    %>
-        <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
-    <% end %>
-</div>
-
-<div class="user-unique-post">
-
-    <%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
-    <div class="form-class">
-        <%= f.text_area :body,  placeholder: "Add a comment", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
-        <%= f.submit class:"form-submit-button" %>
+    <div id="comments_id" >
+        <% @all_comments.each do |allcomment|    %>
+            <%= render 'partial/deleting_user_comment', user_comment:allcomment %>
+        <% end %>
     </div>
-        
-    
-    <%  end %>
-    <br>
-</div>
-<script>
-    $(document).ready(function() {
-      $('.clear-on-focus').focus(function() {
-        $(this).val('');
-      });
-    });
-</script>
-<style>
-    ::placeholder {
-      color: white;
-    }
-</style>
+
+    <div class="user-unique-post">
+        <%= form_with(model:[current_user, @post, @comment], local: false) do |f| %>
+            <div class="form-class">
+                <%= f.text_area :body,  placeholder: "Add a comment", class: "clear-on-focus", style:" background-color: black;border: 2px solid grey; width:300px; height: 50px; color:white" %>
+                <%= f.submit class:"form-submit-button" %>
+            </div>
+        <%  end %>
+    </div>  
+    <style>
+        ::placeholder {
+            color: white;
+        }
+    </style>
 </body>
 </html>

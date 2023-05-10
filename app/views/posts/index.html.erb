@@ -69,7 +69,7 @@
                     <% end %>
                     <div class="user-info"> 
                     
-                        <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title" %></p> 
+                        <p class="user-post-username"><%= link_to User.find(post.user_id).name, user_profile_page_path(post.user_id), class:"link-to-title",  data:{ bs_toggle: "modal", bs_target: "#profile-modal", remote: true }%></p> 
                         <p class="user-post-time"><%= post.created_at.strftime("%d/%b/%y") %> </p> 
                         <div class="post-content">
                             <div class="post-<%= post.id %>">
@@ -97,6 +97,7 @@
 
   
   <!-- Modal -->
+  
   <div class="modal fade" id="newusermodal" tabindex="-1" aria-labelledby="newusermodalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -110,13 +111,27 @@
         
     </div>
   </div>
-
+</div>  
   
    
     
    
     <br>
     <br>
+    <div class="modal fade" id="profile-modal" tabindex="-1" aria-labelledby="profile-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="profile-modalLabel"><div style="padding-left:160px;">Edit Post 11</div> </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="profile-modal">
+            
+            </div>
+            
+          </div>
+      </div>
+    </div>
     <br><br>
 
     <script>
